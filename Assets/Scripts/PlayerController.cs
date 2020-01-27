@@ -19,16 +19,22 @@ namespace Valve.VR.InteractionSystem
         {
             rb = GetComponent<Rigidbody>();
             count = 0;
-            winText.text = "";
+            //winText.text = "";
             SetCountText();
         }
 
-        void SetCountText()
+        public void CountUp()
+        {
+            count += 1;
+            SetCountText();
+        }
+
+        public void SetCountText()
         {
             countText.text = "Count: " + count.ToString();
             if (count >= 9)
             {
-                winText.text = "You win :)";
+               winText.text = "You win :)";
             }
         }
 
@@ -42,14 +48,14 @@ namespace Valve.VR.InteractionSystem
             //    rb.AddForce (movement * speed);
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.CompareTag("Pick Up"))
-            {
-                other.gameObject.SetActive(false);
-                count += 1;
-                SetCountText();
-            }
-        }
+        //void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.gameObject.CompareTag("Pick Up"))
+        //    {
+        //        other.gameObject.SetActive(false);
+        //        count += 1;
+        //        SetCountText();
+        //    }
+        //}
     }
 }

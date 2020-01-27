@@ -17,15 +17,11 @@ namespace Valve.VR.InteractionSystem
     [RequireComponent(typeof(Rigidbody))]
     public class BallThrow : MonoBehaviour
     {
-
-        public Text countText;
-        public Text winText;
+        public PlayerController counter;
 
         public Rigidbody rb;
-        public static int count;
         public float delay = 0.5f;
         
-
         public GameObject ballPrefab;
 
         [EnumFlags]
@@ -66,13 +62,17 @@ namespace Valve.VR.InteractionSystem
         public UnityEvent onDetachFromHand;
         public HandEvent onHeldUpdate;
 
-
+       
         protected RigidbodyInterpolation hadInterpolation = RigidbodyInterpolation.None;
 
         protected new Rigidbody rigidbody;
 
         [HideInInspector]
         public Interactable interactable;
+
+
+
+        
 
 
         //-------------------------------------------------
@@ -204,15 +204,9 @@ namespace Valve.VR.InteractionSystem
             rigidbody.velocity = velocity;
             rigidbody.angularVelocity = angularVelocity;
 
-            StartCoroutine(AnotherCoroutine());
+            Destroy(gameObject, 5);
             
 
-        }
-
-        IEnumerator AnotherCoroutine()
-        {
-            yield return new WaitForSeconds(4);
-            Destroy(gameObject);
         }
 
         public void OnTriggerEnter(Collider other)
@@ -221,18 +215,9 @@ namespace Valve.VR.InteractionSystem
             {
                 other.gameObject.SetActive(false);
                 Destroy(gameObject);
-                count += 1;
-                SetCountText();
+                counter.CountUp();
+                
             }            
-        }
-
-        public void SetCountText()
-        {
-            countText.text = "Count: " + count.ToString();
-            if (count >= 9)
-            {
-                winText.text = "You win :)";
-            }
         }
 
         public virtual void GetReleaseVelocities(Hand hand, out Vector3 velocity, out Vector3 angularVelocity)
