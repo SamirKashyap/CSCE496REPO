@@ -17,8 +17,11 @@ namespace Valve.VR.InteractionSystem
     [RequireComponent(typeof(Rigidbody))]
     public class BallThrow : MonoBehaviour
     {
-        public PlayerController counter;
-
+        // Ryan trying to fix things
+        public Text countText;
+        public Text winText;
+        public int count = 0;
+        /////////
         public Rigidbody rb;
         public float delay = 0.5f;
         
@@ -72,8 +75,21 @@ namespace Valve.VR.InteractionSystem
 
 
 
-        
+        void Start()
+        {
+            // rb = GetComponent<Rigidbody>();
+            winText.text = "";
+            SetCountText();
+        }
 
+        public void SetCountText()
+        {
+            countText.text = "Count: " + count.ToString();
+            if (count >= 9)
+            {
+               winText.text = "You win :)";
+            }
+        }
 
         //-------------------------------------------------
         protected virtual void Awake()
@@ -215,7 +231,8 @@ namespace Valve.VR.InteractionSystem
             {
                 other.gameObject.SetActive(false);
                 Destroy(gameObject);
-                counter.CountUp();
+                count++;
+                SetCountText();
                 
             }            
         }
