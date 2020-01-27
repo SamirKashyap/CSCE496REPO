@@ -17,15 +17,13 @@ namespace Valve.VR.InteractionSystem
     [RequireComponent(typeof(Rigidbody))]
     public class BallThrow : MonoBehaviour
     {
-        // Ryan trying to fix things
-        public Text countText;
-        public Text winText;
-        public int count = 0;
-        /////////
+        public Progress progress;
+
         public Rigidbody rb;
         public float delay = 0.5f;
         
         public GameObject ballPrefab;
+        private GameObject clone;
 
         [EnumFlags]
         [Tooltip("The flags used to attach this object to the hand.")]
@@ -73,24 +71,6 @@ namespace Valve.VR.InteractionSystem
         [HideInInspector]
         public Interactable interactable;
 
-
-
-        void Start()
-        {
-            // rb = GetComponent<Rigidbody>();
-            winText.text = "";
-            SetCountText();
-        }
-
-        public void SetCountText()
-        {
-            countText.text = "Count: " + count.ToString();
-            if (count >= 9)
-            {
-               winText.text = "You win :)";
-            }
-        }
-
         //-------------------------------------------------
         protected virtual void Awake()
         {
@@ -117,6 +97,7 @@ namespace Valve.VR.InteractionSystem
         {
             bool showHint = false;
 
+
             // "Catch" the throwable by holding down the interaction button instead of pressing it.
             // Only do this if the throwable is moving faster than the prescribed threshold speed,
             // and if it isn't attached to another hand
@@ -135,7 +116,7 @@ namespace Valve.VR.InteractionSystem
                     }
                 }
             }
-
+            
             if (showHint)
             {
                 hand.ShowGrabHint();
@@ -189,9 +170,9 @@ namespace Valve.VR.InteractionSystem
 
         public void spawnnew()
         { 
-            GameObject a = Instantiate(ballPrefab) as GameObject;
-            a.transform.position = new Vector3(2.6f, 1.1f, 10f);
-            rb = a.GetComponent<Rigidbody>();
+            clone = (GameObject)Instantiate(ballPrefab);
+            clone.transform.position = new Vector3(2.6f, 1.1f, 10f);
+            rb = clone.GetComponent<Rigidbody>();
             rb.isKinematic = false;
         }
 
@@ -220,9 +201,8 @@ namespace Valve.VR.InteractionSystem
             rigidbody.velocity = velocity;
             rigidbody.angularVelocity = angularVelocity;
 
-            Destroy(gameObject, 5);
+            Destroy(ballPrefab, 4);
             
-
         }
 
         public void OnTriggerEnter(Collider other)
@@ -230,10 +210,9 @@ namespace Valve.VR.InteractionSystem
             if (other.gameObject.CompareTag("Pick Up"))
             {
                 other.gameObject.SetActive(false);
-                Destroy(gameObject);
-                count++;
-                SetCountText();
-                
+                Destroy(ballPrefab.gameObject);
+                progress.Increment();
+                progress.SetCountText();
             }            
         }
 
@@ -241,6 +220,7 @@ namespace Valve.VR.InteractionSystem
         {
             if (hand.noSteamVRFallbackCamera && releaseVelocityStyle != ReleaseStyle.NoChange)
                 releaseVelocityStyle = ReleaseStyle.ShortEstimation; // only type that works with fallback hand is short estimation.
+
 
             switch (releaseVelocityStyle)
             {
