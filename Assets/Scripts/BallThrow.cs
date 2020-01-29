@@ -171,7 +171,8 @@ namespace Valve.VR.InteractionSystem
         public void spawnnew()
         { 
             clone = (GameObject)Instantiate(ballPrefab);
-            clone.transform.position = new Vector3(2.6f, 1.1f, 10f);
+            clone.transform.position = new Vector3(-1.147f, 1.13f, 0.928f);
+            clone.transform.localScale = new Vector3(1, 1, 1);
             rb = clone.GetComponent<Rigidbody>();
             rb.isKinematic = false;
         }
