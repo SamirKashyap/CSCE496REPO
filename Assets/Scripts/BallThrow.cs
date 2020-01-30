@@ -62,8 +62,10 @@ namespace Valve.VR.InteractionSystem
         public UnityEvent onPickUp;
         public UnityEvent onDetachFromHand;
         public HandEvent onHeldUpdate;
+        public Transform eggPrefab;
 
-       
+
+
         protected RigidbodyInterpolation hadInterpolation = RigidbodyInterpolation.None;
 
         protected new Rigidbody rigidbody;
@@ -202,7 +204,7 @@ namespace Valve.VR.InteractionSystem
             rigidbody.velocity = velocity;
             rigidbody.angularVelocity = angularVelocity;
 
-            Destroy(ballPrefab, 4);
+            //Destroy(ballPrefab, 4);
             
         }
 
@@ -214,7 +216,19 @@ namespace Valve.VR.InteractionSystem
                 Destroy(ballPrefab.gameObject);
                 progress.Increment();
                 progress.SetCountText();
-            }            
+            }  
+        }
+      
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                ContactPoint contact = collision.contacts[0];
+                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
+                Vector3 position = contact.point;
+                Instantiate(eggPrefab, position, rotation);
+                Destroy(gameObject);
+            }
         }
 
         public virtual void GetReleaseVelocities(Hand hand, out Vector3 velocity, out Vector3 angularVelocity)
