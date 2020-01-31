@@ -202,10 +202,7 @@ namespace Valve.VR.InteractionSystem
             GetReleaseVelocities(hand, out velocity, out angularVelocity);
 
             rigidbody.velocity = velocity;
-            rigidbody.angularVelocity = angularVelocity;
-
-            //Destroy(ballPrefab, 4);
-            
+            rigidbody.angularVelocity = angularVelocity;          
         }
 
         public void OnTriggerEnter(Collider other)
