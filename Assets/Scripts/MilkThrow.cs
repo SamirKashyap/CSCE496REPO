@@ -15,15 +15,14 @@ namespace Valve.VR.InteractionSystem
     //-------------------------------------------------------------------------
     [RequireComponent(typeof(Interactable))]
     [RequireComponent(typeof(Rigidbody))]
-    public class BallThrow : MonoBehaviour
+    public class MilkThrow : MonoBehaviour
     {
         public Progress progress;
 
         public Rigidbody rb;
         public float delay = 0.5f;
-        
-        public GameObject ballPrefab;
-        public Vector3 position;
+
+        public GameObject milkPrefab;
         private GameObject clone;
 
         [EnumFlags]
@@ -119,7 +118,7 @@ namespace Valve.VR.InteractionSystem
                     }
                 }
             }
-            
+
             if (showHint)
             {
                 hand.ShowGrabHint();
@@ -168,14 +167,15 @@ namespace Valve.VR.InteractionSystem
             attachPosition = transform.position;
             attachRotation = transform.rotation;
 
-            StartCoroutine(ExampleCoroutine());       
+            StartCoroutine(ExampleCoroutine());
         }
 
         public void spawnnew()
-        { 
-            clone = (GameObject)Instantiate(ballPrefab);
-            clone.transform.position = position;
-            clone.transform.localScale = new Vector3(1, 1.2f, 1);
+        {
+            clone = (GameObject)Instantiate(milkPrefab);
+            clone.transform.position = new Vector3(-1.12f, 1.2f, 1.48f);
+            clone.transform.rotation = new Quaternion(0, 0, 0, 0);
+            clone.transform.localScale = new Vector3(2, 4, 2);
             rb = clone.GetComponent<Rigidbody>();
             rb.isKinematic = false;
         }
@@ -203,7 +203,7 @@ namespace Valve.VR.InteractionSystem
             GetReleaseVelocities(hand, out velocity, out angularVelocity);
 
             rigidbody.velocity = velocity;
-            rigidbody.angularVelocity = angularVelocity;          
+            rigidbody.angularVelocity = angularVelocity;
         }
 
         public void OnTriggerEnter(Collider other)
@@ -211,12 +211,12 @@ namespace Valve.VR.InteractionSystem
             if (other.gameObject.CompareTag("Pick Up"))
             {
                 other.gameObject.SetActive(false);
-                Destroy(ballPrefab.gameObject);
+                Destroy(milkPrefab.gameObject);
                 progress.Increment();
                 progress.SetCountText();
-            }  
+            }
         }
-      
+
         public void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Wall"))
@@ -328,13 +328,5 @@ namespace Valve.VR.InteractionSystem
             if (velocityEstimator != null)
                 velocityEstimator.FinishEstimatingVelocity();
         }
-    }
-
-    public enum ReleaseStyle
-    {
-        NoChange,
-        GetFromHand,
-        ShortEstimation,
-        AdvancedEstimation,
     }
 }
