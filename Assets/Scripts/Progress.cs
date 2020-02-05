@@ -7,26 +7,48 @@ public class Progress : MonoBehaviour
 {
     public Text countText;
     public Text winText;
-    public int count = 0;
+    public int egg = 4;
+    public int milk = 1;
+    public int salt = 1;
+    public int butter = 2;
+    public int flour = 2;
+    public int sugar = 2;
+    public int bakingSoda = 1;
 
     // Start is called before the first frame update
     public void Start()
     {
         winText.text = "";
-        SetCountText();
+        //SetCountText();
     }
 
-    public void Increment()
+    public void Increment(string type)
     {
-        count++;
-    }
-
-    public void SetCountText()
-    {
-        countText.text = "Count: " + count.ToString();
-        if (count >= 9)
+        switch (type)
         {
-            winText.text = "You win :)";
+            case "Egg":
+                egg--;
+                Debug.Log("Egg");
+                break;
+            case "Milk":
+                milk--;
+                Debug.Log("Milk");
+                break;
+            case "BakingSoda":
+                bakingSoda--;
+                Debug.Log("BakingSoda");
+                break;
+            default:
+                break;
         }
     }
+
+    //public void SetCountText()
+    //{
+    //    countText.text = "Count: " + count.ToString();
+    //    if (count >= 9)
+    //    {
+    //        winText.text = "You win :)";
+    //    }
+    //}
 }

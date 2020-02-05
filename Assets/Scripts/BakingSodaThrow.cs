@@ -208,12 +208,10 @@ namespace Valve.VR.InteractionSystem
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Pick Up"))
-            {
-                other.gameObject.SetActive(false);
+            if (other.gameObject.CompareTag("Bowl"))
+            { 
                 Destroy(bakingSodaPrefab.gameObject);
-                progress.Increment();
-                progress.SetCountText();
+                progress.Increment("BakingSoda");
             }
         }
 

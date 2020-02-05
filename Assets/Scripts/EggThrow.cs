@@ -15,14 +15,14 @@ namespace Valve.VR.InteractionSystem
     //-------------------------------------------------------------------------
     [RequireComponent(typeof(Interactable))]
     [RequireComponent(typeof(Rigidbody))]
-    public class BallThrow : MonoBehaviour
+    public class EggThrow : MonoBehaviour
     {
         public Progress progress;
 
         public Rigidbody rb;
         public float delay = 0.5f;
         
-        public GameObject ballPrefab;
+        public GameObject eggPrefab;
         public Vector3 position;
         private GameObject clone;
 
@@ -63,7 +63,7 @@ namespace Valve.VR.InteractionSystem
         public UnityEvent onPickUp;
         public UnityEvent onDetachFromHand;
         public HandEvent onHeldUpdate;
-        public Transform eggPrefab;
+        public Transform eggyPrefab;
 
 
 
@@ -173,7 +173,7 @@ namespace Valve.VR.InteractionSystem
 
         public void spawnnew()
         { 
-            clone = (GameObject)Instantiate(ballPrefab);
+            clone = (GameObject)Instantiate(eggPrefab);
             clone.transform.position = position;
             clone.transform.localScale = new Vector3(1, 1.2f, 1);
             rb = clone.GetComponent<Rigidbody>();
@@ -208,12 +208,10 @@ namespace Valve.VR.InteractionSystem
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Pick Up"))
+            if (other.gameObject.CompareTag("Bowl"))
             {
-                other.gameObject.SetActive(false);
-                Destroy(ballPrefab.gameObject);
-                progress.Increment();
-                progress.SetCountText();
+                Destroy(eggPrefab.gameObject);
+                progress.Increment("Egg");
             }  
         }
       
@@ -223,8 +221,8 @@ namespace Valve.VR.InteractionSystem
             {
                 ContactPoint contact = collision.contacts[0];
                 Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
-                Vector3 position = contact.point;
-                Instantiate(eggPrefab, position, rotation);
+                Vector3 position = contact.point + new Vector3(0.01f, 0.01f, 0f);
+                Instantiate(eggyPrefab, position, rotation);
                 Destroy(gameObject);
             }
         }
