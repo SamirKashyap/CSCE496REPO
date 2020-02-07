@@ -38,6 +38,10 @@ public class Progress : MonoBehaviour
                 bakingSoda--;
                 Debug.Log("BakingSoda");
                 break;
+            case "Butter":
+                butter--;
+                Debug.Log("Butter");
+                break;
             default:
                 break;
         }

@@ -241,7 +241,6 @@ Transform:
   m_Children:
   - {fileID: 306156363}
   - {fileID: 1004873004}
-  - {fileID: 1698966117}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -644,7 +643,8 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000013394261110, guid: fb710a001890d9a44bb74a8ce4f20cc0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fb710a001890d9a44bb74a8ce4f20cc0, type: 3}
 --- !u!4 &455666380 stripped
 Transform:
@@ -652,6 +652,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 455666379}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &455666381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000010777624494, guid: fb710a001890d9a44bb74a8ce4f20cc0,
+    type: 3}
+  m_PrefabInstance: {fileID: 455666379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &455666382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455666381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a6c4aef53e4f849931852c2633d871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progress: {fileID: 2066893251}
+  rb: {fileID: 0}
+  delay: 0.5
+  eggPrefab: {fileID: 455666381}
+  position: {x: -0.72, y: 1.09, z: 1.88}
+  cloneScale: {x: 1, y: 2.5, z: 1}
+  ingredient: Butter
+  attachmentFlags: 44
+  attachmentOffset: {fileID: 0}
+  catchingSpeedThreshold: -1
+  releaseVelocityStyle: 1
+  releaseVelocityTimeOffset: -0.011
+  scaleReleaseVelocity: 1.1
+  scaleReleaseVelocityThreshold: -1
+  scaleReleaseVelocityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  restoreOriginalParent: 0
+  onPickUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onDetachFromHand:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeldUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  eggyPrefab: {fileID: 408072658}
+  interactable: {fileID: 0}
 --- !u!1 &491162375
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,13 +921,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 788135214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac8fd56245b92a0448692b14e0c70b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 07a6c4aef53e4f849931852c2633d871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   progress: {fileID: 2066893251}
   rb: {fileID: 0}
   delay: 0.25
-  milkPrefab: {fileID: 788135214}
+  eggPrefab: {fileID: 788135214}
+  position: {x: -1.12, y: 1.2, z: 1.48}
+  cloneScale: {x: 2, y: 4, z: 2}
+  ingredient: Milk
   attachmentFlags: 44
   attachmentOffset: {fileID: 0}
   catchingSpeedThreshold: -1
@@ -901,7 +972,7 @@ MonoBehaviour:
   onHeldUpdate:
     m_PersistentCalls:
       m_Calls: []
-  eggPrefab: {fileID: 408072658}
+  eggyPrefab: {fileID: 408072658}
   interactable: {fileID: 0}
 --- !u!1001 &800337915
 PrefabInstance:
@@ -1049,6 +1120,8 @@ MonoBehaviour:
   delay: 0.25
   eggPrefab: {fileID: 800337917}
   position: {x: -0.96, y: 1.094, z: 0.791}
+  cloneScale: {x: 1, y: 1.2, z: 1}
+  ingredient: Egg
   attachmentFlags: 44
   attachmentOffset: {fileID: 0}
   catchingSpeedThreshold: -1
@@ -1275,6 +1348,8 @@ MonoBehaviour:
   delay: 0.5
   eggPrefab: {fileID: 897212777}
   position: {x: -1.147, y: 1.094, z: 0.791}
+  cloneScale: {x: 1, y: 1.2, z: 1}
+  ingredient: Egg
   attachmentFlags: 44
   attachmentOffset: {fileID: 0}
   catchingSpeedThreshold: -1
@@ -1607,6 +1682,8 @@ MonoBehaviour:
   delay: 0.25
   eggPrefab: {fileID: 1092765448}
   position: {x: -0.96, y: 1.094, z: 0.928}
+  cloneScale: {x: 1, y: 1.2, z: 1}
+  ingredient: Egg
   attachmentFlags: 44
   attachmentOffset: {fileID: 0}
   catchingSpeedThreshold: -1
@@ -1908,12 +1985,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!4 &1255187376 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-    type: 3}
-  m_PrefabInstance: {fileID: 4712545246471725767}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1304913466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2020,13 +2091,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1320026219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b3cdb136045d56419ecd21b3618dcc6, type: 3}
+  m_Script: {fileID: 11500000, guid: 07a6c4aef53e4f849931852c2633d871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   progress: {fileID: 2066893251}
   rb: {fileID: 0}
-  delay: 0.25
-  bakingSodaPrefab: {fileID: 1320026219}
+  delay: 0.5
+  eggPrefab: {fileID: 1320026219}
+  position: {x: -1.12, y: 1.2, z: 1.88}
+  cloneScale: {x: 2, y: 4, z: 2}
+  ingredient: BakingSoda
   attachmentFlags: 44
   attachmentOffset: {fileID: 0}
   catchingSpeedThreshold: -1
@@ -2068,7 +2142,7 @@ MonoBehaviour:
   onHeldUpdate:
     m_PersistentCalls:
       m_Calls: []
-  eggPrefab: {fileID: 408072658}
+  eggyPrefab: {fileID: 408072658}
   interactable: {fileID: 0}
 --- !u!1 &1363975403
 GameObject:
@@ -2385,6 +2459,8 @@ MonoBehaviour:
   delay: 0.5
   eggPrefab: {fileID: 1523546741}
   position: {x: -1.147, y: 1.094, z: 0.928}
+  cloneScale: {x: 1, y: 1.2, z: 1}
+  ingredient: Egg
   attachmentFlags: 44
   attachmentOffset: {fileID: 0}
   catchingSpeedThreshold: -1
@@ -2612,37 +2688,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!1 &1698966116
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1698966117}
-  m_Layer: 0
-  m_Name: Pick Ups
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1698966117
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698966116}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.0172334, y: 13.34746, z: -1.0906799}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1255187376}
-  m_Father: {fileID: 273090942}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764282386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,86 +3161,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142782773}
   m_CullTransparentMesh: 0
---- !u!1001 &4712545246471725767
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1698966117}
-    m_Modifications:
-    - target: {fileID: 4712545245218701676, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_Name
-      value: Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 8.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.46193978
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.19134173
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.19134173
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.84462327
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712545245218701687, guid: 44f26a898598d834e94e1418adaf2189,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000024
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4712545245218701675, guid: 44f26a898598d834e94e1418adaf2189, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 44f26a898598d834e94e1418adaf2189, type: 3}
 --- !u!1001 &9079657932240830509
 PrefabInstance:
   m_ObjectHideFlags: 0

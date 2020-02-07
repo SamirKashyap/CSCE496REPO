@@ -15,15 +15,17 @@ namespace Valve.VR.InteractionSystem
     //-------------------------------------------------------------------------
     [RequireComponent(typeof(Interactable))]
     [RequireComponent(typeof(Rigidbody))]
-    public class EggThrow : MonoBehaviour
+    public class Throw : MonoBehaviour
     {
         public Progress progress;
 
         public Rigidbody rb;
         public float delay = 0.5f;
-        
+
         public GameObject eggPrefab;
         public Vector3 position;
+        public Vector3 cloneScale;
+        public string ingredient;
         private GameObject clone;
 
         [EnumFlags]
@@ -119,7 +121,7 @@ namespace Valve.VR.InteractionSystem
                     }
                 }
             }
-            
+
             if (showHint)
             {
                 hand.ShowGrabHint();
@@ -168,22 +170,7 @@ namespace Valve.VR.InteractionSystem
             attachPosition = transform.position;
             attachRotation = transform.rotation;
 
-            StartCoroutine(ExampleCoroutine());       
-        }
-
-        public void spawnnew()
-        { 
-            clone = (GameObject)Instantiate(eggPrefab);
-            clone.transform.position = position;
-            clone.transform.localScale = new Vector3(1, 1.2f, 1);
-            rb = clone.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-        }
-
-        IEnumerator ExampleCoroutine()
-        {
-            yield return new WaitForSeconds(delay);
-            spawnnew();
+            StartCoroutine(ExampleCoroutine());
         }
 
         //-------------------------------------------------
@@ -203,28 +190,7 @@ namespace Valve.VR.InteractionSystem
             GetReleaseVelocities(hand, out velocity, out angularVelocity);
 
             rigidbody.velocity = velocity;
-            rigidbody.angularVelocity = angularVelocity;          
-        }
-
-        public void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.CompareTag("Bowl"))
-            {
-                Destroy(eggPrefab.gameObject);
-                progress.Increment("Egg");
-            }  
-        }
-      
-        public void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("Wall"))
-            {
-                ContactPoint contact = collision.contacts[0];
-                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
-                Vector3 position = contact.point + new Vector3(0.01f, 0.01f, 0f);
-                Instantiate(eggyPrefab, position, rotation);
-                Destroy(gameObject);
-            }
+            rigidbody.angularVelocity = angularVelocity;
         }
 
         public virtual void GetReleaseVelocities(Hand hand, out Vector3 velocity, out Vector3 angularVelocity)
@@ -326,13 +292,52 @@ namespace Valve.VR.InteractionSystem
             if (velocityEstimator != null)
                 velocityEstimator.FinishEstimatingVelocity();
         }
-    }
 
-    public enum ReleaseStyle
-    {
-        NoChange,
-        GetFromHand,
-        ShortEstimation,
-        AdvancedEstimation,
+
+
+        //--------- ONLY CARE ABOUT STUFF HERE ON ----------
+        public void spawnnew()
+        {
+            clone = (GameObject)Instantiate(eggPrefab);
+            clone.transform.position = position;
+            clone.transform.localScale = cloneScale;
+            rb = clone.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+        }
+
+        IEnumerator ExampleCoroutine()
+        {
+            yield return new WaitForSeconds(delay);
+            spawnnew();
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Bowl"))
+            {
+                Destroy(eggPrefab.gameObject);
+                progress.Increment(ingredient);
+            }
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Wall") && ingredient.Equals("Egg"))
+            {
+                ContactPoint contact = collision.contacts[0];
+                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
+                Vector3 position = contact.point + new Vector3(0.01f, 0.01f, 0f);
+                Instantiate(eggyPrefab, position, rotation);
+                Destroy(gameObject);
+            }
+        }
+
+        public enum ReleaseStyle
+        {
+            NoChange,
+            GetFromHand,
+            ShortEstimation,
+            AdvancedEstimation,
+        }
     }
 }
