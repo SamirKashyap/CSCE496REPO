@@ -42,6 +42,18 @@ public class Progress : MonoBehaviour
                 butter--;
                 Debug.Log("Butter");
                 break;
+            case "Sugar":
+                sugar--;
+                Debug.Log("Sugar");
+                break;
+            case "Salt":
+                salt--;
+                Debug.Log("Salt");
+                break;
+            case "Flour":
+                flour--;
+                Debug.Log("Flour");
+                break;
             default:
                 break;
         }

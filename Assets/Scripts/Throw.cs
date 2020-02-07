@@ -170,7 +170,6 @@ namespace Valve.VR.InteractionSystem
             attachPosition = transform.position;
             attachRotation = transform.rotation;
 
-            StartCoroutine(ExampleCoroutine());
         }
 
         //-------------------------------------------------
@@ -307,14 +306,18 @@ namespace Valve.VR.InteractionSystem
 
         IEnumerator ExampleCoroutine()
         {
-            yield return new WaitForSeconds(delay);
-            spawnnew();
+            if (ingredient.Equals("Egg"))
+            {
+                yield return new WaitForSeconds(delay);
+                spawnnew();
+            }
         }
 
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Bowl"))
             {
+                StartCoroutine(ExampleCoroutine());
                 Destroy(eggPrefab.gameObject);
                 progress.Increment(ingredient);
             }
