@@ -16,6 +16,11 @@ public class Progress : MonoBehaviour
     public int sugar = 2;
     public int bakingSoda = 1;
     private int delay = 8;
+    private bool already = false;
+    public GameObject MixingBowl;
+    public GameObject Cake;
+    public Rigidbody rb;
+    private GameObject cake;
 
     // Start is called before the first frame update
     public void Start()
@@ -68,10 +73,10 @@ public class Progress : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Oven"))
+        if (other.gameObject.CompareTag("Oven") && !already)
         {
+            already = true;
             StartCoroutine(CookingCoroutine());
-            
         }
     }
 
@@ -80,6 +85,12 @@ public class Progress : MonoBehaviour
     {
         Debug.Log("Cooking");
         countText.text = "Ingredients: " + egg.ToString() + " eggs, " + milk.ToString() + " cups milk, " + bakingSoda.ToString() + " tablespoons bakingsoda, " + butter.ToString() + " sticks butter";
+        Destroy(MixingBowl.gameObject);
+        cake = (GameObject)Instantiate(Cake);
+        cake.transform.position = new Vector3(-0.733f, 0.64f, -2.956f);
+        cake.transform.localScale = new Vector3(0.4f, 0.05f, 0.4f);
+        rb = cake.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
     }
 
 }
