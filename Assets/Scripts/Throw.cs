@@ -308,8 +308,8 @@ namespace Valve.VR.InteractionSystem
         {
             if (ingredient.Equals("Egg"))
             {
-                yield return new WaitForSeconds(delay);
                 spawnnew();
+                yield return new WaitForSeconds(delay);
             }
         }
 
@@ -317,7 +317,6 @@ namespace Valve.VR.InteractionSystem
         {
             if (other.gameObject.CompareTag("Bowl"))
             {
-                StartCoroutine(ExampleCoroutine());
                 Destroy(eggPrefab.gameObject);
                 progress.Increment(ingredient);
             }
@@ -327,9 +326,11 @@ namespace Valve.VR.InteractionSystem
         {
             if (collision.gameObject.CompareTag("Wall") && ingredient.Equals("Egg"))
             {
+
+                //StartCoroutine(ExampleCoroutine());
                 ContactPoint contact = collision.contacts[0];
                 Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
-                Vector3 position = contact.point + new Vector3(0.01f, 0.01f, 0f);
+                Vector3 position = contact.point + new Vector3(0f, 0.025f, 0f);
                 Instantiate(eggyPrefab, position, rotation);
                 Destroy(gameObject);
             }

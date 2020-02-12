@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Progress : MonoBehaviour
 {
@@ -14,12 +15,12 @@ public class Progress : MonoBehaviour
     public int flour = 2;
     public int sugar = 2;
     public int bakingSoda = 1;
+    private int delay = 8;
 
     // Start is called before the first frame update
     public void Start()
     {
         winText.text = "";
-        //SetCountText();
     }
 
     public void Increment(string type)
@@ -43,7 +44,7 @@ public class Progress : MonoBehaviour
                 Debug.Log("Butter");
                 break;
             case "Sugar":
-                sugar--;
+                sugar-=2;
                 Debug.Log("Sugar");
                 break;
             case "Salt":
@@ -51,7 +52,7 @@ public class Progress : MonoBehaviour
                 Debug.Log("Salt");
                 break;
             case "Flour":
-                flour--;
+                flour-=2;
                 Debug.Log("Flour");
                 break;
             default:
@@ -59,12 +60,26 @@ public class Progress : MonoBehaviour
         }
     }
 
-    //public void SetCountText()
-    //{
-    //    countText.text = "Count: " + count.ToString();
-    //    if (count >= 9)
-    //    {
-    //        winText.text = "You win :)";
-    //    }
-    //}
+    IEnumerator CookingCoroutine()
+    {
+        yield return new WaitForSeconds(delay);
+        cooking();
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Oven"))
+        {
+            StartCoroutine(CookingCoroutine());
+            
+        }
+    }
+
+  
+    void cooking()
+    {
+        Debug.Log("Cooking");
+        countText.text = "Ingredients: " + egg.ToString() + " eggs, " + milk.ToString() + " cups milk, " + bakingSoda.ToString() + " tablespoons bakingsoda, " + butter.ToString() + " sticks butter";
+    }
+
 }
