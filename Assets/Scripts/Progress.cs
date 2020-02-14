@@ -15,12 +15,18 @@ public class Progress : MonoBehaviour
     public int flour = 1;
     public int sugar = 2;
     public int bakingSoda = 1;
-    private int delay = 8;
+    private int delay = 2;
     private bool already = false;
     public GameObject MixingBowl;
     public GameObject Cake;
+    public GameObject ChoccyCake;
+    public GameObject ZebraCake;
+    public GameObject BigBoy;
     public Rigidbody rb;
     private GameObject cake;
+
+  
+
 
     // Start is called before the first frame update
     public void Start()
@@ -84,8 +90,27 @@ public class Progress : MonoBehaviour
     void cooking()
     {
         Debug.Log("Cooking");
-        countText.text = "Ingredients: " + egg.ToString() + " eggs, " + milk.ToString() + " cups milk, " + bakingSoda.ToString() + " tablespoons bakingsoda, " + butter.ToString() + " sticks butter";
+        //countText.text = "Ingredients: " + egg.ToString() + " eggs, " + milk.ToString() + " cups milk, " + bakingSoda.ToString() + " tablespoons bakingsoda, " + butter.ToString() + " sticks butter";
         Destroy(MixingBowl.gameObject);
+        //int num = new System.Random().Next(1, 3);
+        //switch (num)
+        //{
+        //    case 1:
+        //        cake = (GameObject)Instantiate(Cake);
+        //        cake.transform.position = new Vector3(-0.733f, 0.64f, -2.956f);
+        //        cake.transform.localScale = new Vector3(0.4f, 0.05f, 0.4f);
+        //        break;
+        //    case 2:
+        //        cake = (GameObject)Instantiate(ZebraCake);
+        //        cake.transform.position = new Vector3(-0.981f, 0.303f, -3.962f);
+        //        cake.transform.localScale = new Vector3(0.07867207f, 0.07867207f, 0.07867207f);
+        //        break;
+        //    case 3:
+        //        cake = (GameObject)Instantiate(BigBoy);
+        //        cake.transform.position = new Vector3(0.405f, 1.143f, -2.055f);
+        //        cake.transform.localScale = new Vector3(1f, 0.8f, 1f);
+        //        break;
+        //}
         cake = (GameObject)Instantiate(Cake);
         cake.transform.position = new Vector3(-0.733f, 0.64f, -2.956f);
         cake.transform.localScale = new Vector3(0.4f, 0.05f, 0.4f);
