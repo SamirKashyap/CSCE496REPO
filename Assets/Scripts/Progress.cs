@@ -15,7 +15,7 @@ public class Progress : MonoBehaviour
     public int flour = 1;
     public int sugar = 2;
     public int bakingSoda = 1;
-    private int delay = 2;
+    private int delay = 60;
     private bool already = false;
     public GameObject MixingBowl;
     public GameObject Cake;
