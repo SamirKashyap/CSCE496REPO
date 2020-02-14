@@ -12,7 +12,7 @@ public class Progress : MonoBehaviour
     public int milk = 1;
     public int salt = 1;
     public int butter = 2;
-    public int flour = 2;
+    public int flour = 1;
     public int sugar = 2;
     public int bakingSoda = 1;
     private int delay = 8;
